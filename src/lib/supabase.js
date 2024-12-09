@@ -21,6 +21,37 @@ export async function getSubs() {
   return data;
 }
 
+export async function getSingleSub(id) {
+  const response = await fetch(`${url}?id=eq.${id}`, {
+    method: "GET",
+    headers: headersList,
+  });
+
+  let data = await response.json();
+  return data[0];
+}
+
+export async function DeleteSub(id) {
+  const response = await fetch(`${url}?id=eq.${id}`, {
+    method: "DELETE",
+    headers: headersList,
+  });
+
+  let data = await response.json();
+  return data[0];
+}
+
+export async function PatchSub(id, subdata) {
+  const response = await fetch(`${url}?id=eq.${id}`, {
+    method: "PATCH",
+    headers: headersList,
+    body: JSON.stringify(subdata),
+  });
+
+  let data = await response.json();
+  return data[0];
+}
+
 //ny funcktion hvor vi poster subs hvor den for noget data
 export async function postSub(subdata) {
   const response = await fetch(url, {

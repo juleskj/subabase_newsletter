@@ -1,6 +1,7 @@
 import { getSubs, postSub } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import SingleSubCTA from "@/components/SingleSubCTA";
 
 async function page() {
   const subs = await getSubs();
@@ -33,6 +34,7 @@ async function page() {
           type="text"
           name="name"
           placeholder="write your name"
+          required
         />
         <label htmlFor="email" className="font-bold">
           email
@@ -43,12 +45,12 @@ async function page() {
           type="email"
           name="email"
           placeholder="write your name"
+          required
         />
         <button
-          type="subit"
+          type="submit"
           className="bg-black text-white py-2 px-4 rounded-md my-3 outline outline-2 outline-black hover:outline-offset-2 "
         >
-          {" "}
           Subsribe
         </button>
       </form>
@@ -57,12 +59,11 @@ async function page() {
       <ul className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-4 mx-5 ">
         {/* hver af dem skal være et Link component hvor man sender parameter med til en side. */}
         {subs.map((sub) => (
-          <Link key={sub.id} href={`/`}>
-            <li className="border border-black py-2 px-1">
-              {sub.name} <br />
-              {sub.email}
-            </li>
-          </Link>
+          <SingleSubCTA
+            id={sub.id}
+            name={sub.name}
+            email={sub.email}
+          ></SingleSubCTA>
         ))}
       </ul>
     </div>
